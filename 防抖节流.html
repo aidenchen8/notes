@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">
+    <title>防抖函数</title>
+  </head>
+  <body>
+    <p>防抖：一定时间后输出当前input中的数据（不是打一个字出一个字）</p>
+    <input type='text' id='input'>
+    <p id='ans' style="color: red;"></p>
+    <br>
+    <p>节流：点击后一段时间内的点击无效</p>
+    <button id="button">点击</button>
+    <p id='ans1' style="color: red;"></p>
+    <script>
+        var input = document.getElementById('input');
+        var ans = document.getElementById('ans'); 
+        var button = document.getElementById('button'); 
+        var ans1 = document.getElementById('ans1'); 
+        //防抖函数
+        function debounce(delay,callback){
+            let timer
+            return function(value){
+                //清楚setTimeout, 应该将timer一直存储在内存中(闭包)
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    // callback到外部进行打印等操作
+                    callback(value);
+                },delay)
+            }
+        }
+
+        function print(value){
+            ans.innerHTML=value
+        }
+
+        var debounceFun = debounce(1000,print);
+        input.addEventListener('keyup',function(e){
+            debounceFun(e.target.value)
+        })
+
+
+        // 节流
+        function throttle(func ,wait){
+          let timerOut;
+          return function(){
+            // 如果已经设置了timerOut了就不再设置
+            if(!timerOut){
+              timerOut = setTimeout(function(){
+                //清除timerOut使得本次点击完成后的点击有效
+                timerOut = null;
+                func();
+              },wait)
+            }
+          }
+        }
+        function handle(){
+          ans1.innerHTML=Math.random();
+        }
+        button.onclick = throttle(handle, 2000)
+
+
+    </script>
+  </body>
+
+</html>

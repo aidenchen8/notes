@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">
+    <title>Object</title>
+  </head>
+    <body>
+
+
+    <script type="text/javascript">
+      function Animal(){
+        this.species = "animal"
+      }
+      
+      function Cat(name,color){
+        // **第一种继承方式
+        // Animal.apply(this,arguments);
+        this.name=name;
+        this.color=color;
+      }
+      // **第二种继承方式
+      // 将Cat的prototype对象指向一个Animal的实例
+      // 它相当于完全删除了prototype 对象原先的值，然后赋予一个新值。
+      Cat.prototype = new Animal();
+      // 任何一个prototype对象都有一个constructor属性，指向它的构造函数。
+      // Cat.prototype.constructor指向Animal。
+      console.log(Cat.prototype.constructor == Animal);
+
+      Cat.prototype.constructor = Cat;//将constructor指回Cats
+
+      Cat.prototype.type = "猫科动物";
+      var cat1 = new Cat('ketty','orange')
+      var cat2 = new Cat('corgi','yellow')
+      console.log(cat1.constructor == Animal);
+    </script>
+    </body>
+</html>
