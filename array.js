@@ -93,5 +93,27 @@ console.log(arr8.lastIndexOf(5,5))
 console.log(arr8.indexOf("5"))//不会隐式转换
 
 // 9、forEach()
-// 对数组进行遍历，并运行给定函数
+// 对数组进行遍历，并运行给定函数，forEach没有返回值，默认传参为(currentValue, index, arr)
 // array.forEach(function(currentValue, index, arr), thisValue)
+let arr9 = [1,2,3,4]
+arr9.forEach((x,index,a)=>{
+    console.log(x + '|' + index + '|' + (a === arr9));
+})
+
+// 10、map()
+// 对数组进行遍历，并运行给定函数，然后返回一个新数组
+// array.map(function(currentValue,index,arr), thisValue)
+let arr10 = [1,2,3,4,5]
+console.log(arr10.map((x)=> x*2))
+console.log([1,2,3].map(parseInt))//默认传参(currentValue,index)
+
+// 11、filter()
+// 返回符合条件的元素组成的新数组
+// array.filter(function(currentValue,index,arr), thisValue)
+// 当function中的返回值为true时留下该元素
+console.log(arr10.filter((x)=> x>2))
+
+// 12、every(), some()
+// 数组中每一项（存在一项）满足条件时返回true，否则返回false
+console.log(arr10.every(x=> x>4))
+console.log(arr10.some(x=> x>4))
